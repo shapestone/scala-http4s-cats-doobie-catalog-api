@@ -8,7 +8,7 @@
 
 ## License ##
 
-This code is licensed under the Mozilla Public License Version 2.0, see the
+This code is licensed under the MIT License, see the
 [LICENSE](LICENSE) file for details.
 
 ## System requirements ##
