@@ -6,14 +6,24 @@
 
 package com.shapestone.catalog
 
-import cats.effect.{ExitCode, IO, IOApp}
-import com.typesafe.config.ConfigFactory
+import cats.effect._
+import cats.implicits._
+import org.http4s.implicits._
+import com.shapestone.catalog.interfaces.{ApplicationController, CatalogController}
+import org.http4s.blaze.server._
 
-object Main extends IOApp  {
-  val cfg = ConfigFactory.load(getClass.getClassLoader)
-  val ip = cfg.getString("service.ip")
+import scala.concurrent.ExecutionContext.global
 
-  override def run(args: List[String]): IO[ExitCode] =
-    Server.stream[IO].compile.drain.as(ExitCode.Success)
 
+object Main extends IOApp {
+    private val routes = ApplicationController.applicationService <+> CatalogController.catalogService
+
+  def run(args: List[String]): IO[ExitCode] =
+    BlazeServerBuilder[IO](global)
+      .bindHttp(8080, "localhost")
+      .withHttpApp(routes.orNotFound)
+      .serve
+      .compile
+      .drain
+      .as(ExitCode.Success)
 }

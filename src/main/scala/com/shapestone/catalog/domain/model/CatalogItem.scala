@@ -6,4 +6,4 @@
 
 package com.shapestone.catalog.domain.model
 
-case class CatalogItem()
+case class CatalogItem(id: String, item: String)

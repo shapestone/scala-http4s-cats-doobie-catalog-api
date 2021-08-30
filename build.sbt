@@ -6,10 +6,13 @@ ThisBuild / version      := "0.1.0"
 ThisBuild / organization := "com.shapestone"
 ThisBuild / description := "HTTP4S Cats Doobie Scala Template Project"
 
+ThisBuild / scalacOptions ++= Seq(
+)
+
 val TypeSafeVersion = "1.4.1"
 val ScalaTestVersion = "3.2.9"
-val Http4sVersion = "0.21.26"
-val CirceVersion = "0.13.0"
+val Http4sVersion = "0.23.1"
+val CirceVersion = "0.14.1"
 val MunitVersion = "0.7.27"
 val LogbackVersion = "1.2.5"
 val MunitCatsEffectVersion = "1.0.5"
@@ -29,7 +32,7 @@ lazy val root = (project in file("."))
     libraryDependencies += "org.typelevel"  %% "munit-cats-effect-2" % MunitCatsEffectVersion % Test,
     libraryDependencies += "ch.qos.logback" %  "logback-classic"     % LogbackVersion,
     libraryDependencies += "org.scalameta"  %% "svm-subs"            % ScalaMetaVersion,
-    addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.13.0" cross CrossVersion.full),
+    addCompilerPlugin("org.typelevel" %% "kind-projector"     % "0.13.1" cross CrossVersion.full),
     addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.1"),
     testFrameworks += new TestFramework("munit.Framework")
   )
