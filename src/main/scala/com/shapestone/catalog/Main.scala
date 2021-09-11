@@ -7,16 +7,19 @@
 package com.shapestone.catalog
 
 import cats.effect._
-import cats.implicits._
-import org.http4s.implicits._
-import com.shapestone.catalog.interfaces.{ApplicationController, CatalogController}
+import cats.implicits.toSemigroupKOps
+import com.shapestone.catalog.interfaces.AppController.appService
+import com.shapestone.catalog.interfaces.BasicAuth.middleware
+import com.shapestone.catalog.interfaces.CatalogController.catalogService
 import org.http4s.blaze.server._
+import org.http4s.implicits._
 
 import scala.concurrent.ExecutionContext.global
 
 
 object Main extends IOApp {
-    private val routes = ApplicationController.applicationService <+> CatalogController.catalogService
+
+  private val routes = appService <+> middleware(catalogService)
 
   def run(args: List[String]): IO[ExitCode] =
     BlazeServerBuilder[IO](global)
